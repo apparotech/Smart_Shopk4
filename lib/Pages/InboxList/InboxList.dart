@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+
+import 'package:smart_shopk4/Pages/Chat_Page/chat_page.dart';
+
 
 class Inboxlist extends StatelessWidget {
   const Inboxlist({super.key});
@@ -54,14 +56,68 @@ class Inboxlist extends StatelessWidget {
                     ),
                   ),
 
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
-                  MessageList(name: "raj", image: "assets/Homepage/pic_pass.jpg",mesaage: "Hello raj how are u !", time: "11.00"),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
+
+                  MessageList(
+                    name: "Sally Rooney",
+                    image: "assets/Homepage/pic_pass.jpg", // Make sure the image exists in assets
+                    message: "OMG!!! Yummy 😍",
+                    time: "11:00 AM",
+                    context: context,
+                    nextPage: ChatPage(),  // Replace with the page you want to navigate to
+                  ),
 
 
 
@@ -143,82 +199,93 @@ Widget buildStoryItem( {String? name, String? imageUrl, Color borderColor = Colo
   );
 }
 
-Widget MessageList( {String? name, String? image, String? mesaage, String? time}) {
+Widget MessageList( {
+  required String name,
+  required String image,
+  required String message,
+  required String time,
+  required BuildContext context,  // Context needed for navigation
+  required Widget nextPage,
+}) {
 
-   return Padding(
-       padding:  const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-     child:Row(
-       crossAxisAlignment: CrossAxisAlignment.center,
-       children: [
-         Stack(
-           children: [
-             CircleAvatar(
-               radius: 25,
-               backgroundImage: AssetImage(image!),
-             ),
-             Positioned(
-               bottom: 3,
-                 right: 3,
-                 child: CircleAvatar(
-                   radius: 6,
-                   backgroundColor: Colors.white,
-                   child: CircleAvatar(
-                     radius: 5,
-                     backgroundColor: Colors.green,
-                   ),
-                 )
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => nextPage)
+      );
+    },
 
-             )
+    child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
 
-           ],
-         ),
-         const SizedBox(width: 10,),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
 
-         Expanded(
-             child: Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 25,
+                backgroundImage:  AssetImage(image),
 
-               children: [
-                 Text(name!,
-                   style: const TextStyle(
-                     color: Colors.black,
-                     fontWeight: FontWeight.bold,
-                     fontSize: 16,
-                   ),
-                 ),
+              ),
 
-                  const SizedBox(height: 3),
+              Positioned(
+                bottom: 3,
+                  right: 3,
+                  child:  CircleAvatar(
+                    radius: 6,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 5,
+                      backgroundColor: Colors.green,
+                    ),
+                  ),
+              ),
+            ],
+          ),
 
-                 Text(
-                   mesaage!,
-                   style: TextStyle(
-                     color: Colors.grey.shade600,
-                     fontSize: 14,
-                   ),
-                   overflow: TextOverflow.ellipsis,
-                 )
-               ],
-             )
+          const SizedBox(width: 10,),
 
-         ),
-
-         Column(
-           children: [
-             Text(
-               time!,
-               style: const TextStyle(
-                 color: Colors.grey,
-                 fontSize: 12,
-               ),
-             )
-           ],
-         )
-
-       ],
-
-     )
-     );
-
+          Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 3,),
+                  Text(
+                    message,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 14
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              )
+          ),
+          Column(
+            children: [
+              Text(
+                time,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    ),
+  );
 
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_shopk4/Pages/Add_Product/Add_Product.dart';
+import 'package:smart_shopk4/Pages/Components/Naviagation_Page/Navigation_page.dart';
 import 'package:smart_shopk4/Pages/InboxList/InboxList.dart';
+import 'package:smart_shopk4/Pages/SignUp_page/Sign_up.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -126,7 +128,8 @@ class LoginPage extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey.withOpacity(0.1)
+                      backgroundColor: Colors.grey.withOpacity(0.1),
+
                     ),
                     child: Text(
                       "Sign in with Google", style: TextStyle(color: Colors.black,fontSize: 15),
@@ -143,8 +146,12 @@ class LoginPage extends StatelessWidget {
                       fontSize: 14
                     ),),
                   TextButton(
-                      onPressed: () {}, 
-                      child: Text("sign in",
+                      onPressed: () {
+                       GotoPage(anotherPage: SignUp(), context: context);
+                       // Navigator.push(context,  MaterialPageRoute(builder: (context)=> SignUp(),),
+                        //);
+                      },
+                      child: Text("sign Up",
                         style: TextStyle(color: Colors.purple,fontSize: 14
                         ),
                       )

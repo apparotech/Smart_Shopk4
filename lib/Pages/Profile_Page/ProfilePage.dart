@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smart_shopk4/Pages/Components/Buttons/customButton.dart';
+import 'package:smart_shopk4/Pages/Components/Naviagation_Page/Navigation_page.dart';
+import 'package:smart_shopk4/Pages/EditProfile/EditProfile.dart';
 import 'package:smart_shopk4/Pages/Home_Page/Home_Page.dart';
+import 'package:smart_shopk4/Pages/Notifiaction_Page/Notification_page.dart';
 import 'package:smart_shopk4/Pages/Parterns/Parterns.dart';
 
 class Profilepage extends StatelessWidget {
@@ -71,7 +74,7 @@ class Profilepage extends StatelessWidget {
                            onTap: () {
                              Navigator.push(
                                  context,
-                                 MaterialPageRoute(builder: (context) => HomePage())
+                                 MaterialPageRoute(builder: (context) => Editprofile())
 
                              );
                            }
@@ -121,6 +124,7 @@ class Profilepage extends StatelessWidget {
                       SizedBox(width: 130,),
                       ElevatedButton(
                           onPressed: () {
+                            GotoPage(anotherPage: NotificationPage(), context: context);
 
                           },
                           style: ElevatedButton.styleFrom(
