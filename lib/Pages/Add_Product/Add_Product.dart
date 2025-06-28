@@ -133,7 +133,7 @@ class AddProduct extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Profilepage())
+                            MaterialPageRoute(builder: (context) => ProfilePage())
 
                         );
                       },

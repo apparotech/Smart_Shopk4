@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget customButton({required IconData icon, required String text, required VoidCallback onTap})
+
 {
   return GestureDetector(
     onTap: onTap,
@@ -10,7 +11,7 @@ Widget customButton({required IconData icon, required String text, required Void
 
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:  BorderRadius.circular(30),
+        borderRadius:  BorderRadius.circular(8),
         border: Border.all(color: Colors.black12, width: 1),
 
         boxShadow: [

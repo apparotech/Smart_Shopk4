@@ -7,7 +7,7 @@ class UserModel {
   String? photoUri;
   String? country;
   String? bio;
-  int? id;
+  String? id;
   Timestamp? signedUpAt;
   Timestamp? lastSeen;
   bool? isOnline;

@@ -7,7 +7,12 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Bottom_NavationBar(),
+      body: Center(
+        child: Text("Notification",
+        style: TextStyle(
+          fontSize: 20,
+        ),),
+      ),
     );
   }
 }
