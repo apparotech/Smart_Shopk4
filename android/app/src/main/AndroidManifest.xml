@@ -3,6 +3,14 @@
         android:label="smart_shopk4"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- Add UCropActivity here -->
+        <activity android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CropTheme"/>
+         <!--  this is add     -->
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

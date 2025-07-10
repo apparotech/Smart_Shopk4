@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget customButton({required IconData icon, required String text, required VoidCallback onTap})
+Widget customButton({required IconData? icon, required String text, required VoidCallback onTap})
 
 {
   return GestureDetector(

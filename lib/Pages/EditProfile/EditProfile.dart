@@ -48,8 +48,10 @@ class _EditProfileState extends State<EditProfile> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                viewModel.editProfile(context);
+              onPressed: ()  async {
+
+                await viewModel.editProfile(context);
+                Navigator.pop(context, true);
               },
               icon: Icon(Icons.done,
                 color: Colors.black
@@ -73,8 +75,31 @@ class _EditProfileState extends State<EditProfile> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {
-
+                    onPressed: () async{
+                     showModalBottomSheet(
+                         context: context,
+                         builder: (context) => Column(
+                           mainAxisSize: MainAxisSize.min,
+                           children: [
+                             ListTile(
+                               leading: Icon(Icons.camera_alt),
+                               title: Text('Camera'),
+                               onTap: () {
+                                 Navigator.pop(context);
+                                 viewModel.pickImage(camera: true, context: context);
+                               },
+                             ),
+                              ListTile(
+                                leading: Icon(Icons.photo),
+                                title: Text('Gallery'),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  viewModel.pickImage(camera: false, context: context);
+                                },
+                              )
+                           ],
+                         )
+                     );
                     },
                     child: Text('Edit',
                     style: TextStyle(
@@ -85,17 +110,18 @@ class _EditProfileState extends State<EditProfile> {
               ],
             ),
             SizedBox(height: 5,),
-            Container(
-              height: 200,
-              width: 400,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/Homepage/profile.jpg'),
-                      fit: BoxFit.cover
-                  ),
+             CircleAvatar(
+               radius: 80,
+               backgroundImage: viewModel.image != null
+                   ? FileImage(viewModel.image!)
+                   : (viewModel.user?.photoUri != null)
+                   ? NetworkImage(viewModel.user!.photoUri!)
+                   : AssetImage('assets/Homepage/profile.jpg'),
 
-              ),
-            ),
+
+
+             ),
+
 
             SizedBox(height: 20,),
 
@@ -108,8 +134,8 @@ class _EditProfileState extends State<EditProfile> {
                 validator: (value) {
                   if( value == null || value.isEmpty) {
                     return'please Enter the username';
-                  } else if(ValidationService.userName(value)) {
-                    return 'Please Enter the <1 username';
+                  } else if(!ValidationService.userName(value)) {
+                    return 'Please Enter the Greater than 1';
                   } else {
                     return null;
                   }
@@ -168,155 +194,8 @@ class _EditProfileState extends State<EditProfile> {
           ],
         ),
       ))
-          /*
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 7),
-                  child: Text(
-                    "Profile Picture",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-
-                    ),
-                  ),
-                ),
-
-                SizedBox(width: 200,),
-                TextButton(
-                    onPressed: () {} ,
-                    child: Text("Edit", style:
-                      TextStyle(
-
-                        color: AppColors.primaryBlue500,
-
-                      ),)
-                )
-              ],
-
-            ),
-
-            SizedBox(height: 5,),
-            Container(
-              height: 200,
-              width: 400,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/Homepage/profile.jpg'),
-                  fit: BoxFit.cover
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 2
-                      ,
-                    spreadRadius: 5,
-                    offset: Offset(2, 2)
-                  ),
-                ]
-              ),
-            ),
-
-            SizedBox(height: 30,),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-
-            SizedBox(height: 5,),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    'Bio',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
-                    ),
-                  ),
-
-                ),
 
 
-
-
-
-
-              ],
-
-
-            ),
-
-            Center(
-              child: Text(
-                  'Deccribe Yourself...'
-              ),
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-
-            SizedBox(height: 10,),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    'UserName',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-
-                    ),
-                  ),
-
-                ),
-
-
-
-
-              ],
-
-
-            ),
-
-            Center(
-              child: Text(
-                  'UserName'
-              ),
-            ),
-
-            SizedBox(height: 50,),
-            Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-
-
-
-
-
-          ],
-        ),
-      ),
-      
-           */
     );
   }
 }

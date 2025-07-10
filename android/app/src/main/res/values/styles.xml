@@ -15,4 +15,13 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+
+    <style name="CropTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="colorPrimary">#6200EE</item> <!-- or use your AppColors.primaryBlue500 -->
+        <item name="colorPrimaryDark">#3700B3</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

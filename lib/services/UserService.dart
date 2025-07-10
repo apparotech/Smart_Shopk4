@@ -4,9 +4,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smart_shopk4/Model/UserModel.dart';
+import 'package:smart_shopk4/services/Service.dart';
 import 'package:smart_shopk4/utils/firebase.dart';
 
-class UserService {
+class UserService  extends Service{
 
   Future<UserModel> getUserById(String uid) async {
 
@@ -35,7 +36,7 @@ class UserService {
   // updates user profile in the Edit Profile Screen
 
    updateProfile (
-  { String?username, String?bio, }
+  { String?username, String?bio,  File? image}
        ) async {
 
     DocumentSnapshot doc = await userRef.doc(currentUid()).get();
@@ -43,10 +44,15 @@ class UserService {
 
     users.userName = username;
     users.bio = bio;
+    if(image != null) {
+      users.photoUri = await uploadImage(profilePic, image);
+    }
 
     await userRef.doc(currentUid()).update({
-      'username' : username,
+      'userName' : username,
       'bio' : bio,
+      'photoUri': users.photoUri ?? '',
+      
 
     });
     return true;
