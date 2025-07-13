@@ -7,8 +7,11 @@ import 'package:smart_shopk4/Pages/SignIn_Page/Sign_inPage.dart';
 import 'package:smart_shopk4/Pages/SignUp_page/Sign_up.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/Pages/mainScreen/TabScreen.dart';
+import 'package:smart_shopk4/view_model/FollowViewModel/FollowViewModel.dart';
 import 'package:smart_shopk4/view_model/List_Posts_View_Model/List_Post_View_Model.dart';
+import 'package:smart_shopk4/view_model/OtherUserProfileViewModel/OtherUserProfileViewModel.dart';
 import 'package:smart_shopk4/view_model/ProfileViewModel/ProfileViewModel.dart';
+import 'package:smart_shopk4/view_model/UserSearchViewModel/UserSearchViewModel.dart';
 import 'package:smart_shopk4/view_model/edit_profile_view_model/edit_profile_view_model.dart';
 import 'package:smart_shopk4/view_model/posts_view_model/posts_view_model.dart';
 import 'package:smart_shopk4/view_model/signin_view_model/sign_in_view_model.dart';
@@ -29,7 +32,10 @@ void main()  async
            ChangeNotifierProvider(create: (_) => ProfileViewModel()),
            ChangeNotifierProvider(create: (_)=> EditProfileViewModel()),
            ChangeNotifierProvider(create: (_) =>PostsViewModel()),
-           ChangeNotifierProvider(create: (_) => ListPostViewModel())
+           ChangeNotifierProvider(create: (_) => ListPostViewModel()),
+           ChangeNotifierProvider(create: (_)=> FollowViewModel()),
+           ChangeNotifierProvider(create: (_) =>UserSearchViewModel()),
+           ChangeNotifierProvider(create: (_) => OtherUserProfileViewModel())
 
          ],
        child: MyApp(),

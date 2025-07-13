@@ -58,4 +58,13 @@ class UserService  extends Service{
     return true;
 
    }
+
+   Future<List<UserModel>> searchUsers(String query) async {
+    final snapshot = await firestore
+        .collection('users')
+        .where('userName', isGreaterThanOrEqualTo: query)
+        .where('userName',isLessThan: query + 'z')
+        .get();
+    return snapshot.docs.map((doc) => UserModel.fromJson(doc.data())).toList();
+   }
 }

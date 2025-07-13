@@ -11,6 +11,8 @@ class UserModel {
   Timestamp? signedUpAt;
   Timestamp? lastSeen;
   bool? isOnline;
+  int? followersCount;
+  int? followingCount;
 
   UserModel({
     this.userName,
@@ -21,7 +23,9 @@ class UserModel {
     this.id,
     this.signedUpAt,
     this.lastSeen,
-    this.isOnline
+    this.isOnline,
+    this.followersCount,
+    this.followingCount
 
 });
 
@@ -35,6 +39,8 @@ class UserModel {
     signedUpAt = json['signedUpAt'];
     lastSeen = json['lastSeen'];
     isOnline= json['isOnline'];
+    followersCount = json['followersCount'] ?? 0;
+    followingCount = json['followingCount'] ?? 0;
 
 
   }
@@ -51,6 +57,9 @@ class UserModel {
     data['signedUpAt'] = signedUpAt;
     data['lastSeen'] = lastSeen;
     data['isOnline'] = isOnline;
+
+    data['followersCount'] = followersCount ?? 0;
+    data['followingCount'] = followingCount ?? 0;
     return data;
 
   }

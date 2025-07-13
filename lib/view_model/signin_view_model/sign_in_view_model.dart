@@ -5,7 +5,7 @@ import 'package:smart_shopk4/services/auth_service.dart';
 
 class SignInViewModel extends ChangeNotifier {
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // for the show the  Snackbar from outside
+  //final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); // for the show the  Snackbar from outside
   final GlobalKey<FormState> formKey = GlobalKey<FormState>(); // Validate all fields & Save the form
   bool validate = false;
   bool loading = false;

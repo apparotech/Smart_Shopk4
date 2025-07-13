@@ -17,10 +17,10 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignInViewModel viewModel = Provider.of<SignInViewModel>(context);
-
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>(); // for the show the  Snackbar from outside
 
     return Scaffold(
-      key: viewModel.scaffoldKey,
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
 
       body: SafeArea(

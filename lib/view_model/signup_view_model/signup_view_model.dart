@@ -6,7 +6,7 @@ import 'package:smart_shopk4/Pages/mainScreen/TabScreen.dart';
 import 'package:smart_shopk4/services/auth_service.dart';
 
 class SignupViewModel extends ChangeNotifier {
-final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+//final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? username, email , password, cPassword;
   bool validate = false;

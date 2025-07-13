@@ -19,8 +19,9 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignupViewModel viewModel = Provider.of<SignupViewModel>(context);
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
     return Scaffold(
-      key: viewModel.scaffoldkey,
+      key: _scaffoldKey,
           backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
       body: SafeArea(

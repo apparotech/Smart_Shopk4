@@ -9,8 +9,11 @@ import 'package:smart_shopk4/Pages/Components/Buttons/customButton.dart';
 import 'package:smart_shopk4/Pages/Components/Buttons/menuButton.dart';
 import 'package:smart_shopk4/Pages/Components/Naviagation_Page/Navigation_page.dart';
 import 'package:smart_shopk4/Pages/EditProfile/EditProfile.dart';
+import 'package:smart_shopk4/Pages/Follow/Follow.dart';
 import 'package:smart_shopk4/Pages/HelperFunction/Navigation_Helper.dart';
+import 'package:smart_shopk4/Pages/Settings/Settings.dart';
 import 'package:smart_shopk4/Pages/posts/List_Posts.dart';
+import 'package:smart_shopk4/view_model/FollowViewModel/FollowViewModel.dart';
 
 import 'package:smart_shopk4/view_model/ProfileViewModel/ProfileViewModel.dart';
 
@@ -26,18 +29,23 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<ProfileViewModel>(context, listen:  false).fetchUser().then((_) {
-          final uid = FirebaseAuth.instance.currentUser?.uid;
+        Future.microtask(() async {
+          final uid  = FirebaseAuth.instance.currentUser?.uid;
           if(uid != null) {
-            Provider.of<ProfileViewModel>(context, listen:  false).fetchUserPosts(uid);
+            final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+            final followViewModel  = Provider.of<FollowViewModel>(context, listen:  false);
+
+            await profileViewModel.fetchUser();
+            await profileViewModel.fetchUserPosts(uid);
+            await followViewModel.loadCounts(uid);
           }
-        })
+        }
     );
   }
   @override
   Widget build(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
+    final followViewModel = Provider.of<FollowViewModel>(context);
     final user = profileViewModel.user;
     if(user == null) {
       return const Scaffold(
@@ -56,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                  child: Icon(Icons.search, size: 40,color: Colors.black45,),
+                  child: Icon(Icons.message, size: 40,color: Colors.black45,),
     )
     ],
 
@@ -92,7 +100,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                         customButton(
                                          icon: Icons.settings,
                                          text: "Settings   ",
-                                                onTap: () {}
+                                                onTap: () {
+                                           NavigationHelper.nextPage(context, Settings());
+                                                }
     ),
     //SizedBox(width: 80),
                                          customButton(
@@ -158,19 +168,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
     // Followers
                                        InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        NavigationHelper.nextPage(context, Follow());
+                                      },
 
                                              child: Column(
                                                    mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text('1',
+                                              Text('${followViewModel.followerCount}',
                                                       style: TextStyle(
                                                fontWeight: FontWeight.bold,
                                                 fontSize: 16,
     ),
     ),
                                                   SizedBox(height: 4,),
-                                                     Text('FOLLOWING',
+                                                     Text('Followers',
                                                 style: TextStyle(
                                                    fontSize: 12,
                                                 color: Colors.black
@@ -196,14 +208,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                              child: Column(
                                                   mainAxisSize: MainAxisSize.min,
                                                          children: [
-                                                      Text('1',
+                                                      Text('${followViewModel.followingCount}',
                                                       style: TextStyle(
                                                  fontWeight: FontWeight.bold,
                                                         fontSize: 16,
     ),
     ),
                                             SizedBox(height: 4,),
-                                                Text('FOLLOWERS',
+                                                Text('following',
                                                  style: TextStyle(
                                                         fontSize: 12,
                                                     color: Colors.black
@@ -291,5 +303,6 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 /*
+
 
  */

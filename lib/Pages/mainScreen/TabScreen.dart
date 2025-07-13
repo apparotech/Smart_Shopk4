@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:smart_shopk4/Pages/Components/fab_container.dart';
 import 'package:smart_shopk4/Pages/Notifiaction_Page/Notification_page.dart';
 import 'package:smart_shopk4/Pages/Profile_Page/ProfilePage.dart';
+import 'package:smart_shopk4/Pages/SearchScreen/SearchScreen.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/Pages/feeds/feeds.dart';
 
@@ -31,7 +32,7 @@ class _TabScreenState extends State<TabScreen> {
     {
       'title' : 'Search',
       'icon': Ionicons.search,
-      'page': ProfilePage(),
+      'page': SearchScreen(),
       'index': 1,
 
     },
