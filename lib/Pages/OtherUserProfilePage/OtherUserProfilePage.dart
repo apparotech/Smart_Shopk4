@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_shopk4/Pages/Chat_Page/chat_page.dart';
 import 'package:smart_shopk4/Pages/HelperFunction/Navigation_Helper.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/Pages/posts/List_Posts.dart';
+import 'package:smart_shopk4/utils/firebase.dart';
 import 'package:smart_shopk4/view_model/FollowViewModel/FollowViewModel.dart';
 import 'package:smart_shopk4/view_model/OtherUserProfileViewModel/OtherUserProfileViewModel.dart';
 class OtherUserProfilePage extends StatefulWidget {
@@ -72,7 +75,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
 
                 SizedBox(height: 10,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     AnimatedSwitcher(
                         duration: Duration(milliseconds: 300),
@@ -83,7 +86,7 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                           },
                           icon: Icon(Icons.check, color: Colors.purple, size: 18),
                           label: Text(
-                            "Following",
+                            "  Following  ",
                             style: TextStyle(color: Colors.purple),
                       ),
                         style: OutlinedButton.styleFrom(
@@ -107,11 +110,46 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
                             )
                           ),
                           child: Text(
-                            'Follow',
+                            '     Follow     ',
                             style: TextStyle(
                               color: Colors.white
                             ),
                           )
+                      ),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: () async {
+                        final currentUserId = firebaseAuth.currentUser!.uid;
+                        final targetUserId = user.id;
+
+                        // step 1 : Try to find existing chat
+                        QuerySnapshot existingChats = await chatRef
+                        .where('users', arrayContains: currentUserId)
+                        .get();
+
+                        String chatId ="newChat"; // default to new chat
+                        for(var doc in existingChats.docs) {
+                          List users = doc['users'];
+                          if(users.contains(targetUserId)) {
+                            chatId = doc.id;
+                            break;
+                          }
+                        }
+                        NavigationHelper.nextPage(context, ChatPage(userId: user.id!, chatId: chatId,));
+                      },
+                      icon: Icon(Icons.messenger, color: Colors.purple, size: 18),
+                      label: Text(
+                        "   Message   ",
+                        style: TextStyle(color: Colors.purple),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                              color: Colors.purple
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          )
+
                       ),
                     )
                   ]
@@ -256,25 +294,5 @@ class _OtherUserProfilePageState extends State<OtherUserProfilePage> {
 }
 
 /*
- Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    OutlinedButton(
 
-                        onPressed: () {
-                          followVM.toggleFollow(widget.userId);
-                        },
-                        style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            side: BorderSide(color: Colors.black54)
-                        ),
-                        child:Text(
-                           followVM.isFollowing ? "unfollow" : 'Follow',
-                          style: TextStyle(color: Colors.black),
-                        )
-                    ),
-                  ],
-                ),
  */

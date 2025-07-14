@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shopk4/Model/UserModel.dart';
 import 'package:smart_shopk4/Model/postModel.dart';
+import 'package:smart_shopk4/Pages/Chat_Page/recentChat.dart';
 import 'package:smart_shopk4/Pages/Components/Buttons/customButton.dart';
 import 'package:smart_shopk4/Pages/Components/Buttons/menuButton.dart';
 import 'package:smart_shopk4/Pages/Components/Naviagation_Page/Navigation_page.dart';
@@ -12,6 +13,7 @@ import 'package:smart_shopk4/Pages/EditProfile/EditProfile.dart';
 import 'package:smart_shopk4/Pages/Follow/Follow.dart';
 import 'package:smart_shopk4/Pages/HelperFunction/Navigation_Helper.dart';
 import 'package:smart_shopk4/Pages/Settings/Settings.dart';
+import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/Pages/posts/List_Posts.dart';
 import 'package:smart_shopk4/view_model/FollowViewModel/FollowViewModel.dart';
 
@@ -64,7 +66,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                  child: Icon(Icons.message, size: 40,color: Colors.black45,),
+                  child: IconButton(
+                      onPressed: () {
+                        NavigationHelper.nextPage(context, RecentChat());
+                      },
+                      icon: Icon(Icons.message, color: AppColors.primaryBlue500,)
+                  )
     )
     ],
 

@@ -74,11 +74,7 @@ class LoginPage extends StatelessWidget {
             Padding(padding: const EdgeInsets.only(left: 10, right: 10, ),
               child: TextButton(
                   onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context)=> Inboxlist())
 
-                );
 
                   },
                   child: Text('Forgot password',
