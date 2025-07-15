@@ -29,6 +29,7 @@ class ChatService {
   }
 
 //determine if a user has read a chat and updates how many messages are unread
+  /*
   setUserRead(String chatId, User user, int count) async {
     DocumentSnapshot snap = await chatRef.doc(chatId).get();
 
@@ -44,6 +45,25 @@ class ChatService {
     reads[user.uid] = count;
     await chatRef.doc(chatId).update({'reads' : reads});
   }
+
+   */
+
+  setUserRead(String chatId, User user, int count) async {
+    DocumentSnapshot snap = await chatRef.doc(chatId).get();
+
+    if (!snap.exists || !(snap.data() as Map).containsKey('reads')) {
+      await chatRef.doc(chatId).set({
+        'reads': {user.uid: count},
+      }, SetOptions(merge: true));
+      return;
+    }
+
+    Map reads = snap.get('reads') ?? {};
+    reads[user.uid] = count;
+
+    await chatRef.doc(chatId).update({'reads': reads});
+  }
+
 
 //determine when a user has start typing a message
   setUserTyping(String chatId, User user, bool userTyping) async {

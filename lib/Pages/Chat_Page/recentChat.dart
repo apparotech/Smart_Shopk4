@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shopk4/Model/message.dart';
@@ -7,14 +8,43 @@ import 'package:smart_shopk4/utils/firebase.dart';
 import 'package:smart_shopk4/view_model/ChatViewModel/ChatViewModel.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class RecentChat extends StatelessWidget {
+class RecentChat extends StatefulWidget {
   const RecentChat({super.key});
 
   @override
+  State<RecentChat> createState() => _RecentChatState();
+}
+
+class _RecentChatState extends State<RecentChat> {
+
+  void initState (){
+    super.initState();
+
+
+    // Ensure user is set before build
+    Future.microtask(() {
+      Provider.of<ChatViewModel>(context, listen: false).setUser();
+    });
+}
+
+  @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<ChatViewModel>(context, listen: false);
-    viewModel.setUser();
-    return Scaffold(
+    final viewModel = Provider.of<ChatViewModel>(context);
+
+     if(viewModel.user == null) {
+       return Scaffold(
+         appBar: AppBar(
+           title: Text("Chats"),
+         ),
+         body: Center(
+           child: CircularProgressIndicator(),
+         ),
+       );
+     }
+    return
+
+
+      Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
@@ -57,6 +87,7 @@ class RecentChat extends StatelessWidget {
                                 chatId: chatListSnapshot.id,
                                 type: message.type,
                                   currentUserId: viewModel.user!.uid ?? " ",
+
                               );
                             } else {
                               return SizedBox();

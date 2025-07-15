@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_chat_bubble/chat_bubble.dart' as flutter_chat_bubble;
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -30,11 +31,9 @@ class ChatBubbleWidget extends StatefulWidget {
 class _ChatBubbleWidgetState extends State<ChatBubbleWidget> {
   Color? chatBubbleColor() {
     if (widget.isMe!) {
-      return Theme.of(context).colorScheme.secondary;
+      return Colors.purple;
     } else {
-      return Theme.of(context).brightness == Brightness.dark
-          ? Colors.grey[800]
-          : Colors.grey[200];
+      return AppColors.primaryBlue500;
     }
   }
 

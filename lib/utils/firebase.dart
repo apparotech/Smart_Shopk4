@@ -15,6 +15,7 @@ final Uuid uuid = Uuid();
 
 CollectionReference userRef = firestore.collection('users');
 CollectionReference postRef = firestore.collection('posts');
+CollectionReference commentRef =firestore.collection('comments');
 CollectionReference followersRef =firestore.collection('followers');
 CollectionReference followingRef =firestore.collection('following');
 CollectionReference chatRef = firestore.collection("chats");

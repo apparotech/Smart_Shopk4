@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shopk4/Model/postModel.dart';
+import 'package:smart_shopk4/Pages/CommentPage/CommentPage.dart';
+import 'package:smart_shopk4/Pages/HelperFunction/Navigation_Helper.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/services/UserService.dart';
 import 'package:smart_shopk4/view_model/List_Posts_View_Model/List_Post_View_Model.dart';
@@ -83,6 +85,52 @@ class _ListPostsState extends State<ListPosts> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Text(formattedDate),
               ),
+
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 12),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: [
+                     IconButton(
+                         onPressed: () {},
+                         icon: Icon(Icons.thumb_up_alt_outlined, color: AppColors.primaryBlue500,)
+
+
+                     ),
+                     Text('Like',
+                       style: TextStyle(
+                         color: AppColors.primaryBlue500,
+                         fontWeight: FontWeight.w500
+                       ),
+
+                     ),
+                     SizedBox(width: 30,),
+                     IconButton(
+                         onPressed: (){
+                           NavigationHelper.nextPage(context, CommentPage());
+                         },
+                         icon: Icon(Icons.mode_comment_outlined, color: Colors.grey)
+                     ),
+                     Text('Comment',
+                       style: TextStyle(
+                         color: Colors.grey
+                       ),
+                     ),
+
+                     SizedBox(width: 40,),
+                     IconButton(
+                         onPressed: () {},
+                         icon: Icon(Icons.share_outlined, color: Colors.grey,)
+                     ),
+
+                     Text('Share'
+                      , style: TextStyle(
+                         color: Colors.grey
+                       ),)
+                   ],
+                 ),
+               ),
+
               Divider(),
             ],
           );

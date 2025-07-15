@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shopk4/Model/enum/message_type.dart';
+import 'package:smart_shopk4/Pages/Chat_Page/chat_page.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/utils/firebase.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -18,6 +19,7 @@ class ChatItem extends StatelessWidget {
   final String? currentUserId;
 
 
+
   const ChatItem({
     super.key,
      this.userId,
@@ -27,6 +29,7 @@ class ChatItem extends StatelessWidget {
      this.chatId,
      this.type,
      this.currentUserId,
+
   });
 
   @override
@@ -34,12 +37,11 @@ class ChatItem extends StatelessWidget {
     return StreamBuilder(
         stream: userRef.doc('$userId').snapshots(),
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            DocumentSnapshot documentSnapshot =
-            snapshot.data as DocumentSnapshot<Object?>;
-            UserModel user = UserModel.fromJson(
-              documentSnapshot.data() as Map<String, dynamic>,
-            );
+          if(snapshot.hasData && snapshot.data!.data() != null) {
+
+            DocumentSnapshot documentSnapshot = snapshot.data!;
+            Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+            UserModel user = UserModel.fromJson(data);
 
             return ListTile(
               contentPadding:
@@ -123,7 +125,15 @@ class ChatItem extends StatelessWidget {
           ],
           ),
           onTap: () {
-
+             Navigator.of(context, rootNavigator: true).push(
+               CupertinoPageRoute(
+                   builder: (BuildContext context) {
+                     return ChatPage(
+                         userId: userId!,
+                         chatId: chatId!);
+                   }
+               )
+             );
           },
             );
           } else {

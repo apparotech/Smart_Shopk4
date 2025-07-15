@@ -194,103 +194,106 @@ class _ChatPageState extends State<ChatPage> {
 
   }
 
+/*
 
-  buildUserName() {
-    return StreamBuilder(
-        stream: userRef.doc('${widget.userId}').snapshots(),
-        builder: (context, snapshot) {
 
-          if(snapshot.hasData) {
-            DocumentSnapshot documentSnapshot =
-            snapshot.data as DocumentSnapshot<Object?>;
-            UserModel user = UserModel.fromJson(
-              documentSnapshot.data() as Map<String, dynamic>,
-            );
+ */
 
-            return InkWell(
-             child: Row(
-               children: [
-                 Padding(
-                     padding: EdgeInsets.only(left: 10, right: 10),
-                   child: Hero(
-                       tag: user.email!,
-                       child: user.photoUri!.isEmpty
-                       ? CircleAvatar(
-                         radius: 25.0,
-                         backgroundColor:
-                         AppColors.primaryBlue500,
-                         child: Center(
-                           child: Text(
-                               "${user.userName![0].toUpperCase()}",
-                             style: TextStyle(
-                               color: Colors.white,
-                               fontSize: 15.0,
-                               fontWeight: FontWeight.w900
-                             ),
-                           ),
-                         ),
-                       )
-                           : CircleAvatar(
-                         radius: 25,
-                         backgroundImage: NetworkImage(
-                           '${user.photoUri}'
-                         ),
-                       )
-                   ),
-                 ),
-                 SizedBox(width: 10.0,),
-                 Expanded(
-                     child: Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         Text(
-                           '${user.userName}',
-                           style: TextStyle(
-                             fontWeight: FontWeight.bold,
-                             fontSize: 15.0
-                           ),
-
-                         ),
-                         SizedBox(height: 5,),
-                         StreamBuilder(
-                             stream: chatRef.doc('${widget.chatId}').snapshots(),
-                             builder: (context, snapshot) {
-
-                               if(snapshot.hasData) {
-                                 DocumentSnapshot? snap =
-                                 snapshot.data as DocumentSnapshot<Object?>;
-                                 Map? data = snap.data() as Map<dynamic, dynamic>?;
-                                // Map? usersTyping = data?['typing'] ?? {};
-                                 bool isTyping = (data?['typing'] ?? {})[widget.userId] == true;
-                                 return Text(
-                                   _buildOnlineText(
-                                       user,
-                                       isTyping
-                                   ),
-                                   style: TextStyle(
-                                     fontWeight: FontWeight.w400,
-                                     fontSize: 11,
-                                   ),
-                                 );
-                               } else{
-                                 return SizedBox();
-                               }
-                             }
-                         )
-
-                       ],
-                     )
-                 )
-               ],
-             ),
-            );
-
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
+  Widget buildUserName() {
+    return StreamBuilder<DocumentSnapshot>(
+      stream: userRef.doc(widget.userId).snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
         }
+
+        if (!snapshot.hasData || snapshot.data == null) {
+          return const Text("User not found");
+        }
+
+        DocumentSnapshot documentSnapshot = snapshot.data!;
+
+        // ✅ Safety check: document doesn't exist or has null data
+        if (!documentSnapshot.exists || documentSnapshot.data() == null) {
+          return const Text("User not found");
+        }
+
+        final userData = documentSnapshot.data() as Map<String, dynamic>;
+        final user = UserModel.fromJson(userData);
+
+        return InkWell(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Hero(
+                  tag: user.email ?? '',
+                  child: user.photoUri == null || user.photoUri!.isEmpty
+                      ? CircleAvatar(
+                    radius: 25.0,
+                    backgroundColor: AppColors.primaryBlue500,
+                    child: Center(
+                      child: Text(
+                        "${user.userName?[0].toUpperCase() ?? "?"}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  )
+                      : CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(user.photoUri!),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user.userName ?? "Unknown",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    StreamBuilder<DocumentSnapshot>(
+                      stream: chatRef.doc(widget.chatId).snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData || snapshot.data == null) {
+                          return const SizedBox();
+                        }
+
+                        final snap = snapshot.data!;
+                        final data = snap.data() as Map<String, dynamic>?;
+
+                        final typingMap = data?['typing'] as Map<String, dynamic>? ?? {};
+                        final isTyping = typingMap[widget.userId] == true;
+
+                        return Text(
+                          _buildOnlineText(user, isTyping),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 11,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
+
   String _buildOnlineText(UserModel user, bool typing) {
     if (user.isOnline == true) {
       return typing ? "typing..." : "online";
@@ -314,45 +317,49 @@ class _ChatPageState extends State<ChatPage> {
   sendMessage(ChatViewModel viewModel, var  user,
 
       )  async{
-    String? msg = messageController.text;
-    if(msg.trim().isNotEmpty) {
-      Message message = Message(
-        content: '$msg',
-        senderUid: user.uid,
-        type: MessageType.TEXT,
-        time: Timestamp.now(),
+   String msg = messageController.text.trim();
 
-      );
-    }
+   if(msg.isEmpty) return;
 
+   Message  message = Message(
+     content: msg,
+     senderUid: user.uid,
+     type: MessageType.TEXT,
+     time: Timestamp.now(),
+   );
 
-      if(msg.isNotEmpty) {
-        if(isFirst) {
-          print('FIRST');
-          String id = await viewModel.sendFirstMessage(widget.userId, message);
-          setState(() {
-            isFirst = false;
-            chatId = id;
+   if(isFirst) {
+     print('FIRST MESSAGE');
 
-            chatIdRef.add({
-              "users": getUser(firebaseAuth.currentUser!.uid, widget.userId),
-              'chatId': id
-            });
+     String newChatId = await viewModel.sendFirstMessage(widget.userId, message);
+    /// Update state:
+     ///   isFirst ko false kar diya — ab ye pehla message nahi hai.
+     setState(() {
+       isFirst =false;
+       chatId = newChatId;
+     });
+     // Save chatId and users:
+     await chatIdRef.add({
+       "users": getUser(firebaseAuth.currentUser!.uid, widget.userId),
+       'chatId': newChatId,
+     });
 
-            viewModel.sendMessage(widget.chatId, message);
-          });
-          //update the reads to an empty map in other to avoid null value bug
-          chatRef.doc(chatId).update({'reads': {}});
-         //update the typing to an empty map in other to avoid null value bug
-          chatRef.doc(chatId).update({'typing': {}});
-        } else {
-          viewModel.sendMessage(
-            widget.chatId,
-            message,
-          );
-        }
+     // Initialize typing and reads maps to avoid null errors
 
-      }
+     await chatIdRef.doc(newChatId).set( {
+       'reads': {},
+       'typing': {},
+     }, SetOptions(merge: true)
+
+     );
+     viewModel.sendFirstMessage(newChatId, message);
+
+   } else {
+     viewModel.sendMessage(chatId!, message); // ✅ Use state-managed chatId
+   }
+
+   messageController.clear();
+   setTyping(false);
   }
 
   String getUser(String user1, String user2) {
