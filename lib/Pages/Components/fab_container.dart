@@ -1,9 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_shopk4/Pages/HelperFunction/Navigation_Helper.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/Pages/posts/create_posts.dart';
+import 'package:smart_shopk4/view_model/StoryViewModel/StoryViewModel.dart';
 
 class FabContainer extends StatelessWidget {
   final Widget? page;
@@ -14,6 +16,7 @@ class FabContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StoryViewModel viewModel= Provider.of<StoryViewModel>(context);
     return OpenContainer(
       transitionType: ContainerTransitionType.fade,
 
@@ -37,7 +40,7 @@ class FabContainer extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-            chooseUpload(context);
+            chooseUpload(context, viewModel);
             },
           mini: mini,
         );
@@ -46,7 +49,7 @@ class FabContainer extends StatelessWidget {
         );
   }
 
-  chooseUpload(BuildContext context) {
+  chooseUpload(BuildContext context, StoryViewModel viewModel) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -87,7 +90,9 @@ class FabContainer extends StatelessWidget {
                 ListTile(
                   leading: Icon(CupertinoIcons.photo),
                   title: Text('Add to story'),
-                  onTap: () {},
+                  onTap: () async {
+                     await viewModel.pickImage(context: context);
+                  },
                 ),
               ],
             ),

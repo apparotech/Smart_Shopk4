@@ -21,4 +21,29 @@ class CommentService {
     });
 
   }
+
+  // add the comment to notification collection
+
+  addCommentToNotification(
+      String type,
+      String commentData,
+      String username,
+      String userId,
+      String postId,
+      String mediaUrl,
+      String ownerId,
+      String userDp
+
+      ) async {
+    await notificationRef.doc(ownerId).collection('notifications').add({
+      "type": type,
+      "commentData": commentData,
+      "username": username,
+      "userId": userId,
+      "userDp": userDp,
+      "postId": postId,
+      "mediaUrl": mediaUrl,
+      "timestamp": Timestamp.now(),
+    });
+  }
 }

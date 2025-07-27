@@ -55,6 +55,7 @@ dependencies:
   flutter_spinkit: ^5.2.1
   timeago: ^3.7.1
   flutter_chat_bubble: ^2.0.0
+  loading_overlay: ^0.4.2
 
 
 dev_dependencies:

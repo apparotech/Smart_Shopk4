@@ -21,11 +21,15 @@ CollectionReference followingRef =firestore.collection('following');
 CollectionReference chatRef = firestore.collection("chats");
 CollectionReference chatIdRef = firestore.collection('chatIds');
 
+CollectionReference notificationRef = firestore.collection('notifications');
+CollectionReference statusRef = firestore.collection('status');
+
 
 // Storage refs
 
 Reference profilePic = storage.ref().child('profilePic');
 Reference posts = storage.ref().child('posts');
+Reference statuses = storage.ref().child('status');
 
 
 

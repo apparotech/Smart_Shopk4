@@ -10,6 +10,7 @@ class PostModel {
   String? description;
   String? mediaUrl;
   Timestamp? timestamp;
+   Map<String, bool> ? likes ;
 
 
   PostModel ({
@@ -21,6 +22,7 @@ class PostModel {
     this.description,
     this.mediaUrl,
     this.timestamp,
+     this.likes
    
 });
 // firebase se data lena ---
@@ -34,7 +36,12 @@ class PostModel {
     description = json['description'];
     mediaUrl = json['mediaUrl'];
     timestamp = json['timestamp'];
+    likes: (json['likes'] as Map<String, dynamic>?)?.map(
+          (key, value) => MapEntry(key, value == true),
 
+
+
+    );
 
   }
 
@@ -49,6 +56,7 @@ class PostModel {
     data['description'] = this.description;
     data['mediaUrl'] = this.mediaUrl;
     data['timestamp'] = this.timestamp;
+    data['likes'] = this.likes;
 
     return data;
 

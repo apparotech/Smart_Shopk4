@@ -13,6 +13,7 @@ import 'package:smart_shopk4/view_model/FollowViewModel/FollowViewModel.dart';
 import 'package:smart_shopk4/view_model/List_Posts_View_Model/List_Post_View_Model.dart';
 import 'package:smart_shopk4/view_model/OtherUserProfileViewModel/OtherUserProfileViewModel.dart';
 import 'package:smart_shopk4/view_model/ProfileViewModel/ProfileViewModel.dart';
+import 'package:smart_shopk4/view_model/StoryViewModel/StoryViewModel.dart';
 import 'package:smart_shopk4/view_model/UserSearchViewModel/UserSearchViewModel.dart';
 import 'package:smart_shopk4/view_model/edit_profile_view_model/edit_profile_view_model.dart';
 import 'package:smart_shopk4/view_model/posts_view_model/posts_view_model.dart';
@@ -39,7 +40,8 @@ void main()  async
            ChangeNotifierProvider(create: (_) =>UserSearchViewModel()),
            ChangeNotifierProvider(create: (_) => OtherUserProfileViewModel()),
            ChangeNotifierProvider(create: (_) => ChatViewModel()),
-           ChangeNotifierProvider(create: (_) => UserViewModel())
+           ChangeNotifierProvider(create: (_) => UserViewModel()),
+           ChangeNotifierProvider(create: (_) => StoryViewModel())
 
          ],
        child: MyApp(),

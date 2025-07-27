@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:smart_shopk4/Pages/Bottom_Navigation_Bar/Bottom_Navation_Bar.dart';
 
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 
   @override
+  State<NotificationPage> createState() => _NotificationPageState();
+}
+
+class _NotificationPageState extends State<NotificationPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Notification",
-        style: TextStyle(
-          fontSize: 20,
-        ),),
+      appBar:
+      AppBar(
+        title: Text('Notification'),
+        centerTitle: true,
+        actions: [
+          Padding(padding: const EdgeInsets.all(20.0),
+          )
+        ],
       ),
     );
   }
 }
+
