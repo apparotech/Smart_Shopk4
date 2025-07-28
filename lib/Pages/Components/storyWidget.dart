@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_shopk4/Model/UserModel.dart';
 import 'package:smart_shopk4/Model/storyModel.dart';
+import 'package:smart_shopk4/Pages/StoryPage/StoryPage.dart';
 import 'package:smart_shopk4/Pages/const/Colors/AppColor.dart';
 import 'package:smart_shopk4/utils/firebase.dart';
 
@@ -98,18 +99,27 @@ class StoryWidget extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => StoryPage(
+                              initPage: index,
+                              statusId: chatId,
+                              storyId: messageId,
+                              userId: userId)
 
+                      )
+                    );
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color:  AppColors.primaryBlue500,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Colors.transparent,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
+                            color:  AppColors.primaryBlue500,
                             offset: new Offset(0.0, 0.0),
                             blurRadius: 2.0,
                             spreadRadius: 0.0,
@@ -120,7 +130,7 @@ class StoryWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(1.0),
                         child: CircleAvatar(
                           radius: 35.0,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: AppColors.primaryBlue500,
                           backgroundImage: CachedNetworkImageProvider(
                             user.photoUri!,
                           ),
