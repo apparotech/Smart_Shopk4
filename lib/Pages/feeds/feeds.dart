@@ -60,7 +60,7 @@ class _FeedsState extends State<Feeds> {
 
                               return Padding(
                                   padding: const EdgeInsets.all(10),
-                                child: UserPost(post: posts,)
+                                child: UserPost(posts: posts,)
                               );
 
                               }

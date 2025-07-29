@@ -100,7 +100,7 @@ class _ListPostsState extends State<ListPosts> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Like logic here
+
                       },
                       child: Row(
                         children:  [

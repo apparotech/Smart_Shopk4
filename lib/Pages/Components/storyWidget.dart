@@ -99,28 +99,28 @@ class StoryWidget extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
                           builder: (_) => StoryPage(
-                              initPage: index,
-                              statusId: chatId,
-                              storyId: messageId,
-                              userId: userId)
-
-                      )
-                    );
+                            initPage: index,
+                            statusId: chatId,
+                            storyId: messageId,
+                            userId: userId,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color:  AppColors.primaryBlue500,
+                        color: AppColors.primaryBlue500,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Colors.transparent,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color:  AppColors.primaryBlue500,
-                            offset: new Offset(0.0, 0.0),
+                            color: AppColors.primaryBlue500,
+                            offset: Offset(0.0, 0.0),
                             blurRadius: 2.0,
                             spreadRadius: 0.0,
                           ),
@@ -131,22 +131,26 @@ class StoryWidget extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 35.0,
                           backgroundColor: AppColors.primaryBlue500,
-                          backgroundImage: CachedNetworkImageProvider(
-                            user.photoUri!,
-                          ),
+                          backgroundImage: user.photoUri != null
+                              ? CachedNetworkImageProvider(user.photoUri!)
+                              : null,
+                          child: user.photoUri == null
+                              ? Icon(Icons.person, size: 35.0, color: Colors.white)
+                              : null,
                         ),
                       ),
                     ),
                   ),
                   Text(
-                    user.userName!,
+                    user.userName ?? "Unknown",
                     style: TextStyle(
                       fontSize: 10.0,
                       fontWeight: FontWeight.bold,
                     ),
-                  )
+                  ),
                 ],
               ),
+
             );
           } else {
             return const SizedBox();

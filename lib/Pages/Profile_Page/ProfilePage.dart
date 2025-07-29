@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(profileViewModel.user?.userName ??" loading", style: TextStyle(color: Colors.purple,
+        title: Text(profileViewModel.user?.userName ??" loading", style: TextStyle(color: AppColors.primaryBlue500,
 
         fontWeight: FontWeight.bold),),
                   actions: [
@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                mainAxisSize: MainAxisSize.min,
                                               children: const [
                                               Text(
-                                                   '2',
+                                                   '4',
                                             style: TextStyle(
                                              fontWeight: FontWeight.bold,
                                                     fontSize: 16,
