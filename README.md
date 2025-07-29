@@ -1,4 +1,6 @@
 
+⭐⭐⭐ Wow Social Media App
+---
 An Instagram-like social media application built using **Flutter**, **Firebase**, and modern UI practices. This project replicates core functionalities of Instagram including posting, liking, following, push notifications, user authentication, and more.
 
 ## 🛠 Tech Stack
@@ -60,7 +62,7 @@ An Instagram-like social media application built using **Flutter**, **Firebase**
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/apparotech/Wow4
 cd your-repo-name
 
 2. Install dependencies
@@ -149,5 +151,5 @@ Created by Raj Kumar Mahto
 
 💼 LinkedIn: Raj Aryan [https://www.linkedin.com/in/raj-aryan-313368256/]
 
-💻 GitHub: 
+💻 GitHub:  https://github.com/apparotech
 
