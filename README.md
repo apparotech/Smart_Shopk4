@@ -27,6 +27,7 @@ An Instagram-like social media application built using **Flutter**, **Firebase**
 | Edit Profile & Update Image        | ✔️ |
 | Stories Feature (like Instagram)   | ✔️ (if added) |
 | Search Other Users                 | ✔️ |
+| Message to each other              | ✔️ |
 | Push Notifications (New Posts, Follows, Likes) | ✔️ |
 | Save/Bookmark Posts                | 🚧 (Coming Soon) |
 
